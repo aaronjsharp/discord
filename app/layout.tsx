@@ -5,6 +5,7 @@ import { Open_Sans } from 'next/font/google'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { cn } from '@/lib/utils'
 import { ModalProvider } from '@/components/providers/modalProvider'
+import { SocketProvider } from '@/components/providers/socketProvider'
 
 const font = Open_Sans({ subsets: ['latin'] })
 
@@ -24,15 +25,17 @@ export default function RootLayout({
         <body className={cn(
           font.className,
           "bg-white dark:bg-[#313338]"
-          )}>
+        )}>
           <ThemeProvider
             attribute='class'
             defaultTheme='dark'
             enableSystem={false}
             storageKey='discord-theme'
           >
-            <ModalProvider />
-            {children}
+            <SocketProvider>
+              <ModalProvider />
+              {children}
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>
